@@ -1,0 +1,6 @@
+pytest==8.3.3  # For testing
+pytest-mock==3.11.1  # Optional, for mocking objects in tests
+flake8==6.1.0  # Code linting
+mypy==1.6.0  # Static type checking
+Jinja2==3.1.4
+MarkupSafe==3.0.2

@@ -1,0 +1,20 @@
+
+__pycache__
+*/__pycache__
+*.bin
+*.pkl
+*.pt
+*.pyc
+.DS_Store
+.idea
+.ipynb_checkpoints/
+.vscode
+
+checkpoints/*
+logs/*
+
+data/**/*.npy # The ** matches files and directories at any depth under data/
+data/**/*.jsonl
+data/**/*.json
+data/**/*.txt
+
