@@ -115,7 +115,7 @@ for step in range(max_steps):
     last_step = (step == max_steps - 1)
 
     # Evaluate once in a while 
-    if step > 0 and (step % config.evaluation_interval == 0 or last_step):
+    if (step > 0 and config.evaluation_interval and step % config.evaluation_interval == 0) or last_step:
         model.eval()
         val_loader.reset()
         with torch.no_grad():
@@ -157,7 +157,7 @@ for step in range(max_steps):
             torch.save(checkpoint, checkpoint_path)
 
     # once in a while evaluate hellaswag
-    if (step % config.evaluation_interval == 0 or last_step):
+    if (step > 0 and config.evaluation_interval and step % config.evaluation_interval == 0) or last_step:
         num_correct_norm = 0
         num_total = 0
         for i, example in enumerate(iterate_examples("val")):
@@ -179,7 +179,8 @@ for step in range(max_steps):
 
 
     # once in a while generate from the model (except step 0, which is noise)
-    if ((step > 0 and step % config.evaluation_interval == 0) or last_step):
+    if (step > 0 and config.evaluation_interval and step % config.evaluation_interval == 0) or last_step:
+
         model.eval()
         num_return_sequences = 4
         max_length = 32
