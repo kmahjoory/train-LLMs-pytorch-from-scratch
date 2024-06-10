@@ -1,20 +1,38 @@
 
-__pycache__
-*/__pycache__
-*.bin
-*.pkl
-*.pt
-*.pyc
-.DS_Store
-.idea
-.ipynb_checkpoints/
-.vscode
+# Ignore development files or folders at any depth
+dev_*
+*_dev.*
+*_dev*
+
+# Ignore all files under 'data/' except '.py' and '.sh' files at any depth. Do NOT ignore subdirectories.
+data/*
+#!data/** 
+!data/**/*.py
+!data/**/*.sh
+
 
 checkpoints/*
 logs/*
 
-data/**/*.npy # The ** matches files and directories at any depth under data/
-data/**/*.jsonl
-data/**/*.json
-data/**/*.txt
+__pycache__
+**/__pycache__
+
+.DS_Store
+**/.DS_Store
+
+
+*.bin
+*.pkl
+*.pt
+*.pyc
+
+.idea
+.ipynb_checkpoints/
+.vscode
+
+
+
+
+
+
 
