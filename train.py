@@ -29,7 +29,7 @@ from torch.nn import functional as F
 from src.models import GPT
 from src.dataloader import DataLoaderLite
 from src.hellaswag import render_example, iterate_examples
-from src.utils import get_most_likely_row, CosineScheduler
+from src.utils import get_most_likely_row, CosineScheduler, init_from_checkpoint
 
 # Define the default configuration file path
 CONFIG_FILE = "default_config.yaml"
@@ -89,7 +89,13 @@ torch.set_float32_matmul_precision('high')
 
 # Instantiate model object
 # model = GPT.from_pretrained("gpt2") # or init from OpenAI GPT-2
+first_step = 0 # defaults to zero for training from scratch
 model = GPT(config)
+if config.init_model_from == 'checkpoint':
+    checkpoint_path = os.path.join(config.checkpoint_dir, config.checkpoint_file)
+    model, iter_num = init_from_checkpoint(model, checkpoint_path, device_type)
+    first_step += iter_num
+
 model.to(device)
 model = torch.compile(model)
 
@@ -109,10 +115,11 @@ optimizer = model.configure_optimizers(weight_decay=0.1, learning_rate=6e-4, dev
 
 
 # START TRAINING ...
-for step in range(max_steps):
+for _s in range(max_steps):
     
+    step = _s + first_step
     t0 = time.time()
-    last_step = (step == max_steps - 1)
+    last_step = (step == max_steps - first_step - 1)
 
     # Evaluate once in a while 
     if (step > 0 and config.evaluation_interval and step % config.evaluation_interval == 0) or last_step:

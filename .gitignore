@@ -13,6 +13,7 @@ data/*
 
 checkpoints/*
 logs/*
+notebooks/*
 
 __pycache__
 **/__pycache__

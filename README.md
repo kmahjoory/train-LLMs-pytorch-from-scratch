@@ -46,15 +46,16 @@ python train.py --config_file new_config.yaml
 
 
 ### To Implement
-- [ ] Implement model initialization for training:
+- [x] Implement model initialization for training:
     - init_model_from: 'scratch', 'checkpoint', 'pre_trained'
+- [ ] Clean up validation part of training ...
+- [ ] add test, to check if checkpoints start from same seed!
 - [ ] Add best model checkpoint functionality
 - [ ] Add more tests to verify the train.py code
 - [ ] Implement and Train an encoder-decoder transformer architecture
 
-### To Research
-- [ ] Understand the impact of dropping transformer components:
-    - [Impact of Dropping Transformer Components](https://arxiv.org/pdf/2406.15786)
+
+- [ ] [Impact of Dropping Transformer Components](https://arxiv.org/pdf/2406.15786)
 
 
 
