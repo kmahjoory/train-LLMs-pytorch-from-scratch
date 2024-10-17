@@ -1,4 +1,5 @@
 
+import os
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
@@ -47,3 +48,30 @@ class CosineScheduler:
         assert 0 <= decay_ratio <= 1
         coeff = 0.5 * (1.0 + math.cos(math.pi * decay_ratio)) # coeff starts at 1 and goes to 0
         return self.min_lr + coeff * (self.max_lr - self.min_lr)
+
+
+
+
+def init_from_checkpoint(model, ckpt_path, device_type):
+    """
+
+    Args:
+        model: 
+
+
+    Returns:
+    """
+    print("Resume Training from checkpoint")
+    
+    checkpoint = torch.load(ckpt_path, map_location=device_type)
+
+    state_dict = checkpoint['model']
+    for k in list(state_dict.keys()):
+        if k.startswith("_orig_mod."):
+            state_dict[k[len("_orig_mod."):]] = state_dict.pop(k)
+
+    model.load_state_dict(state_dict)
+    iter_num = checkpoint['iter_num']
+    print(f"Checkpoint loaded successfully. Resuming from iteration {iter_num}.")
+    
+    return model, iter_num

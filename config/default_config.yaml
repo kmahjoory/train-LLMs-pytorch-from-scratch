@@ -1,21 +1,21 @@
 
 # W&B specifications
-enable_wandb_logging: !!bool False
+enable_wandb_logging: !!bool True
 wandb_project_name: "gpt2_small"
-experiment_name: 'gpt2-dev'
+experiment_name: 'gpt2'
 logs_dir: 'logs' # W@B files are stored here.
 
 
 # Run specifications
-train_from_scratch: !!bool True # overrides train_from_checkpoint
-init_model_from: 'scratch' # 'scratch', 'checkpoint', 'pre_trained'
+init_model_from: '' # 'checkpoint' 'scratch', 'checkpoint', 'pre_trained'
 
-max_iters: !!int 6 #19073 # 19,073 steps is ~1 epoch, if data is 10B tokens and batch size 0.5M tokens
+
+max_iters: !!int 19073 # 19,073 steps is ~1 epoch, if data is 10B tokens and batch size 0.5M tokens
 evaluation_interval: !!int 500 # set to 0 or None to disable evaluation
 checkpoint_interval: !!int 5000 # Note that: checkpoint_interval % evaluation_interval = 0
 
 checkpoint_dir: 'checkpoints'
-checkpoint_file: '' # Reads the checkpoint_dir
+checkpoint_file: 'model_00016_2024-11-14.pt' # Reads the checkpoint_dir
 
 # Embedding layer specification
 sequence_length: 1024 # Maximum sequence/context length (tokens) or block size (variable T in the code)
